@@ -17,12 +17,6 @@ AddEventHandler('lakijeva-rakija:efektRakije', function(prop_name)
       Citizen.Wait(200)
     end    
 
-    if Config.KoristiMythicNotify then
-        exports['mythic_notify']:DoHudText('success', 'Ti si popio rakijicu!')
-    else
-        ESX.ShowNotification("~g~Popili ste rakijicu!~s~")
-    end
-
 	Citizen.CreateThread(function()
         local playerPed = GetPlayerPed(-1)
 		local x,y,z = table.unpack(GetEntityCoords(playerPed))
@@ -34,6 +28,11 @@ AddEventHandler('lakijeva-rakija:efektRakije', function(prop_name)
 			Wait(3000)
 			ClearPedSecondaryTask(playerPed)
 			DeleteObject(prop)
+            if Config.KoristiMythicNotify then
+                exports['mythic_notify']:DoHudText('success', 'Ti si popio rakijicu!')
+            else
+                ESX.ShowNotification("~g~Popili ste rakijicu!~s~")
+            end
 		end)
     end)
     Efekti(playerPed)
