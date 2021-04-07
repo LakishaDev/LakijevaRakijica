@@ -35,6 +35,7 @@ AddEventHandler('lakijeva-rakija:efektRakije', function(prop_name)
             end
 		end)
     end)
+    
     Efekti(playerPed)
 end)
 
