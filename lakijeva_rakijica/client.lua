@@ -1,29 +1,21 @@
 -- !! NE DIRAJ NISTA AKO NE ZNAS !! --
 ESX = nil
-local PlayerData = {}
-local animPocni = false
-
 Citizen.CreateThread(function()
     while ESX == nil do
         TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
         Wait(1)
     end
 end)
-
-RegisterNetEvent('esx:playerLoaded')
-AddEventHandler('esx:playerLoaded', function(xPlayer)
-    PlayerData = xPlayer
-end)
+local animPocni = false
 
 RegisterNetEvent('lakijeva-rakija:onRakijica')
 AddEventHandler('lakijeva-rakija:onRakijica', function(prop_name)
-    local playerPed = GetPlayerPed(-1)
     prop_name = prop_name or 'prop_vodka_bottle'
 	animPocni = true
 
     RequestAnimSet("move_m@hobo@a") 
     while not HasAnimSetLoaded("move_m@hobo@a") do
-      Citizen.Wait(100)
+      Citizen.Wait(200)
     end    
 
     -- OSIM OVOG -- ↓
@@ -31,7 +23,7 @@ AddEventHandler('lakijeva-rakija:onRakijica', function(prop_name)
     --exports['mythic_notify']:DoHudText('success', 'Ti si popio rakijicu!')
 
 	Citizen.CreateThread(function()
-		local playerPed = PlayerPedId()
+        local playerPed = GetPlayerPed(-1)
 		local x,y,z = table.unpack(GetEntityCoords(playerPed))
 		local prop = CreateObject(GetHashKey(prop_name), x, y, z + 0.2, true, true, true)
 		local boneIndex = GetPedBoneIndex(playerPed, 18905)
@@ -44,23 +36,27 @@ AddEventHandler('lakijeva-rakija:onRakijica', function(prop_name)
 			DeleteObject(prop)
 		end)
     end)
+    Efekti(playerPed)
+end)
+
+function Efekti(igrac)
     Citizen.Wait(3000)
-    ClearPedTasksImmediately(playerPed)
+    ClearPedTasksImmediately(igrac)
     SetTimecycleModifier("spectator3")
-    SetPedMotionBlur(playerPed, true)
-    SetPedMovementClipset(playerPed, "move_m@hobo@a", true)
-    SetPedIsDrunk(playerPed, true)
+    SetPedMotionBlur(igrac, true)
+    SetPedMovementClipset(igrac, "move_m@hobo@a", true)
+    SetPedIsDrunk(igrac, true)
     AnimpostfxPlay("HeistCelebPass", 10000001, true)
     ShakeGameplayCam("DRUNK_SHAKE", 8.0)
-    SetEntityHealth(GetPlayerPed(-1), 200)
+    SetEntityHealth(igrac, 200)
     SetPedArmour(PlayerPedId(), 200)
     Citizen.Wait(300000)
     SetPedMoveRateOverride(PlayerId(),1.0)
     SetRunSprintMultiplierForPlayer(PlayerId(),1.0)
-    SetPedIsDrunk(GetPlayerPed(-1), false)		
+    SetPedIsDrunk(igrac, false)		
     SetPedMotionBlur(playerPed, false)
-    ResetPedMovementClipset(GetPlayerPed(-1))
+    ResetPedMovementClipset(igrac)
     AnimpostfxStopAll()
     ShakeGameplayCam("DRUNK_SHAKE", 0.0)
     SetTimecycleModifierStrength(0.0)
-end)
+end
