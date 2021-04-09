@@ -31,7 +31,7 @@ AddEventHandler('lakijeva-rakija:efektRakije', function(prop_name)
             if Config.KoristiMythicNotify then
                 exports['mythic_notify']:DoHudText('success', 'Ti si popio rakijicu!')
             else
-                ESX.ShowNotification("~g~Popili ste rakijicu!~s~")
+                ESX.ShowNotification("~g~Popili ste rakijicu!XD~s~")
             end
 		end)
     end)
@@ -50,7 +50,9 @@ function Efekti(igrac)
     ShakeGameplayCam("DRUNK_SHAKE", Config.JacinaEfekta)
     SetEntityHealth(igrac, 200)
     SetPedArmour(PlayerPedId(), 200)
+
     Citizen.Wait(Config.TrajanjeEfekta * 1000)
+    
     SetPedMoveRateOverride(PlayerId(),1.0)
     SetRunSprintMultiplierForPlayer(PlayerId(),1.0)
     SetPedIsDrunk(igrac, false)		
