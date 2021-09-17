@@ -1,10 +1,9 @@
--- Resource Verzija
 fx_version 'cerulean'
 game 'gta5'
 
-author "L4K1SH4#7855 on Discord"
+author "Lakisha#6843 on Discord"
 description 'LakijevaRakijica xD'
-version "1.0.2"
+version "1.0.3"
 
 client_scripts {
     "client.lua",

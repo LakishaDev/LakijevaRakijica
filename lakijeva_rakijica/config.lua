@@ -1,5 +1,7 @@
 Config = {}
 
+Config.KoristiESX = true --Ako ne koristite es_extended stavite na false
+
 Config.KoristiMythicNotify = true -- Ako ne koristite MythicNotify stavite na false ovo
 
 Config.TrajanjeEfekta = 120 -- Sekunde
